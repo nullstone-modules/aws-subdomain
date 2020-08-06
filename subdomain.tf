@@ -1,5 +1,5 @@
 resource "aws_route53_zone" "this" {
-  name = var.subdomain
+  name = "${var.env}.${var.subdomain}"
 
   tags = {
     Stack       = var.stack_name
