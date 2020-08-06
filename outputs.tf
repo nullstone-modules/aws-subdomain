@@ -1,7 +1,11 @@
 output "subdomain_zone_id" {
-  value = ""
+  value = aws_route53_zone.this.zone_id
 }
 
 output "subdomain_nameservers" {
-  value = []
+  value = aws_route53_zone.this.name_servers
+}
+
+output "subdomain_name" {
+  value = aws_route53_zone.this.name
 }
