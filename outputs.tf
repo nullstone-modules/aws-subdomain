@@ -1,9 +1,9 @@
 output "domain_zone_id" {
-  value = data.terraform_remote_state.domain.outputs.domain_zone_id
+  value = data.terraform_remote_state.domain.outputs.zone_id
 }
 
 output "domain_name" {
-  value = data.terraform_remote_state.domain.outputs.domain_name
+  value = data.terraform_remote_state.domain.outputs.name
 }
 
 output "subdomain_zone_id" {

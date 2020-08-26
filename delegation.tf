@@ -9,7 +9,7 @@ resource "aws_route53_record" "delegation" {
   provider = aws.domain
 
   name    = var.subdomain
-  zone_id = data.terraform_remote_state.domain.outputs.subdomain_zone_id
+  zone_id = data.terraform_remote_state.domain.outputs.zone_id
   type    = "NS"
   ttl     = 300
   records = aws_route53_zone.root.name_servers

@@ -1,5 +1,5 @@
 resource "aws_route53_zone" "root" {
-  name = "${var.subdomain}.${data.terraform_remote_state.domain.outputs.domain_name}"
+  name = "${var.subdomain}.${data.terraform_remote_state.domain.outputs.name}"
 
   tags = {
     Stack       = var.stack_name
