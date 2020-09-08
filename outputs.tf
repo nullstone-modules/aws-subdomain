@@ -10,7 +10,7 @@ output "vanity" {
   value = {
     name        = var.create_vanity ? aws_route53_zone.vanity[0].name : ""
     zone_id     = var.create_vanity ? aws_route53_zone.vanity[0].zone_id : ""
-    nameservers = var.create_vanity ? aws_route53_zone.vanity[0].name_servers : ""
+    nameservers = var.create_vanity ? aws_route53_zone.vanity[0].name_servers : []
   }
 }
 
