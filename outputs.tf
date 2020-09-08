@@ -8,9 +8,9 @@ output "domain_name" {
 
 output "vanity" {
   value = {
-    name        = var.create_vanity ? aws_route53_zone.vanity.name : ""
-    zone_id     = var.create_vanity ? aws_route53_zone.vanity.zone_id : ""
-    nameservers = var.create_vanity ? aws_route53_zone.vanity.name_servers : ""
+    name        = var.create_vanity ? aws_route53_zone.vanity[0].name : ""
+    zone_id     = var.create_vanity ? aws_route53_zone.vanity[0].zone_id : ""
+    nameservers = var.create_vanity ? aws_route53_zone.vanity[0].name_servers : ""
   }
 }
 
