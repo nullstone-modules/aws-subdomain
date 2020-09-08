@@ -8,12 +8,11 @@ output "domain_name" {
 
 output "vanity" {
   value = {
-    name        = aws_route53_zone.vanity.name
-    zone_id     = aws_route53_zone.vanity.zone_id
-    nameservers = aws_route53_zone.vanity.name_servers
+    name        = var.create_vanity ? aws_route53_zone.vanity.name : ""
+    zone_id     = var.create_vanity ? aws_route53_zone.vanity.zone_id : ""
+    nameservers = var.create_vanity ? aws_route53_zone.vanity.name_servers : ""
   }
 }
-
 
 output "env" {
   value = {
