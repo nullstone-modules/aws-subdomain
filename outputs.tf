@@ -6,14 +6,19 @@ output "domain_name" {
   value = data.terraform_remote_state.domain.outputs.name
 }
 
-output "subdomain_zone_id" {
-  value = aws_route53_zone.root.zone_id
+output "vanity" {
+  value = {
+    name        = aws_route53_zone.vanity.name
+    zone_id     = aws_route53_zone.vanity.zone_id
+    nameservers = aws_route53_zone.vanity.name_servers
+  }
 }
 
-output "subdomain_nameservers" {
-  value = aws_route53_zone.root.name_servers
-}
 
-output "subdomain_name" {
-  value = aws_route53_zone.root.name
+output "env" {
+  value = {
+    name        = aws_route53_zone.env.name
+    zone_id     = aws_route53_zone.env.zone_id
+    nameservers = aws_route53_zone.env.name_servers
+  }
 }
