@@ -21,3 +21,7 @@ output "env" {
     nameservers = aws_route53_zone.env.name_servers
   }
 }
+
+output "cert_arn" {
+  value = module.cert.this_acm_certificate_arn
+}
