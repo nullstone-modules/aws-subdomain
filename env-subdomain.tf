@@ -1,6 +1,6 @@
 // Environmental subdomain zone
 resource "aws_route53_zone" "env" {
-  name = "${var.subdomain}.${var.env}.${data.terraform_remote_state.domain.outputs.name}"
+  name = "${var.subdomain}.${var.env}.${local.domain_name}"
 
   tags = {
     Stack       = var.stack_name
@@ -15,7 +15,7 @@ resource "aws_route53_record" "env-delegation" {
   provider = aws.domain
 
   name    = "${var.subdomain}.${var.env}"
-  zone_id = data.terraform_remote_state.domain.outputs.zone_id
+  zone_id = local.domain_zone_id
   type    = "NS"
   ttl     = 300
   records = aws_route53_zone.env.name_servers

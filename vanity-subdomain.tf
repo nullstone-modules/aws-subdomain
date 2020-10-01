@@ -1,6 +1,6 @@
 // Vanity subdomain zone (separate from environmental)
 resource "aws_route53_zone" "vanity" {
-  name = "${var.subdomain}.${data.terraform_remote_state.domain.outputs.name}"
+  name = "${var.subdomain}.${local.domain_zone_id}"
 
   count = var.create_vanity ? 1 : 0
 
@@ -19,7 +19,7 @@ resource "aws_route53_record" "vanity-delegation" {
   count = var.create_vanity ? 1 : 0
 
   name    = var.subdomain
-  zone_id = data.terraform_remote_state.domain.outputs.zone_id
+  zone_id = local.domain_zone_id
   type    = "NS"
   ttl     = 300
   records = aws_route53_zone.vanity[0].name_servers

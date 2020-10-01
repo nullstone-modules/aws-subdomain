@@ -17,3 +17,8 @@ provider "aws" {
 
   alias = "domain"
 }
+
+locals {
+  domain_name    = data.terraform_remote_state.domain.outputs.name
+  domain_zone_id = data.terraform_remote_state.domain.outputs.zone_id
+}
