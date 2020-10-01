@@ -23,5 +23,5 @@ output "env" {
 }
 
 output "cert_arn" {
-  value = module.cert.this_acm_certificate_arn
+  value = module.cert.certificate_arn
 }
