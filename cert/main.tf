@@ -21,9 +21,8 @@ variable "tags" {
 }
 
 locals {
-  names = concat([var.domain.name], var.alt_domains[*].name)
-  zone_ids = concat([var.domain.zone_id], var.alt_domains[*].zone_id)
-  zone_id_lookup = zipmap(local.names, local.zone_ids)
+  all_domains = concat([var.domain], var.alt_domains)
+  dvo_names   = aws_acm_certificate.this.domain_validation_options[*]["resource_record_name"]
 }
 
 resource "aws_acm_certificate" "this" {
@@ -37,16 +36,17 @@ resource "aws_acm_certificate" "this" {
 resource "aws_route53_record" "cert_validation" {
   for_each = {
     for dvo in aws_acm_certificate.this.domain_validation_options : dvo.domain_name => {
-      name   = dvo.resource_record_name
-      record = dvo.resource_record_value
-      type   = dvo.resource_record_type
+      name    = dvo.resource_record_name
+      record  = dvo.resource_record_value
+      type    = dvo.resource_record_type
+      zone_id = element(local.all_domains, index(local.dvo_names, dvo.resource_record_name)).zone_id
     }
   }
 
   name            = each.value.name
-  type            = each.value.type
+  type            = "CNAME"
   allow_overwrite = true
-  zone_id         = lookup(local.zone_id_lookup, each.value.name)
+  zone_id         = each.value.zone_id
   records         = [each.value.record]
   ttl             = 60
 }
