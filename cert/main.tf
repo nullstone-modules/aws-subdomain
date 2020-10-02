@@ -6,29 +6,16 @@ variable "domain" {
   })
 }
 
-variable "alt_domains" {
-  description = "A list of domains that should be SANs in the issued certificate. Zone IDs are used to create validation records"
-  type = list(object({
-    name : string
-    zone_id : string
-  }))
-}
-
 variable "tags" {
   description = "A mapping of tags to assign to the resource"
   type        = map(string)
   default     = {}
 }
 
-locals {
-  all_domains = concat([var.domain], var.alt_domains)
-  dvo_names   = aws_acm_certificate.this.domain_validation_options[*]["resource_record_name"]
-}
-
 resource "aws_acm_certificate" "this" {
   domain_name               = var.domain.name
   validation_method         = "DNS"
-  subject_alternative_names = var.alt_domains[*].name
+  subject_alternative_names = []
 
   tags = var.tags
 }
@@ -36,17 +23,16 @@ resource "aws_acm_certificate" "this" {
 resource "aws_route53_record" "cert_validation" {
   for_each = {
     for dvo in aws_acm_certificate.this.domain_validation_options : dvo.domain_name => {
-      name    = dvo.resource_record_name
-      record  = dvo.resource_record_value
-      type    = dvo.resource_record_type
-      zone_id = element(local.all_domains, index(local.dvo_names, dvo.resource_record_name)).zone_id
+      name   = dvo.resource_record_name
+      record = dvo.resource_record_value
+      type   = dvo.resource_record_type
     }
   }
 
   name            = each.value.name
   type            = "CNAME"
   allow_overwrite = true
-  zone_id         = each.value.zone_id
+  zone_id         = var.domain.zone_id
   records         = [each.value.record]
   ttl             = 60
 }

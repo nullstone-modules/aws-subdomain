@@ -1,24 +1,15 @@
-output "domain_zone_id" {
-  value = data.terraform_remote_state.domain.outputs.zone_id
-}
-
-output "domain_name" {
-  value = data.terraform_remote_state.domain.outputs.name
-}
-
-output "vanity" {
+output "domain" {
   value = {
-    name        = var.create_vanity ? aws_route53_zone.vanity[0].name : ""
-    zone_id     = var.create_vanity ? aws_route53_zone.vanity[0].zone_id : ""
-    nameservers = var.create_vanity ? aws_route53_zone.vanity[0].name_servers : []
+    name    = data.terraform_remote_state.domain.outputs.name
+    zone_id = data.terraform_remote_state.domain.outputs.zone_id
   }
 }
 
-output "env" {
+output "subdomain" {
   value = {
-    name        = aws_route53_zone.env.name
-    zone_id     = aws_route53_zone.env.zone_id
-    nameservers = aws_route53_zone.env.name_servers
+    name        = aws_route53_zone.this.name
+    zone_id     = aws_route53_zone.this.zone_id
+    nameservers = aws_route53_zone.this.name_servers
   }
 }
 
