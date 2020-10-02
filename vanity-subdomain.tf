@@ -1,6 +1,6 @@
 // Vanity subdomain zone (separate from environmental)
 resource "aws_route53_zone" "vanity" {
-  name = "${var.subdomain}.${local.domain_zone_id}"
+  name = "${var.subdomain}.${local.domain_name}"
 
   count = var.create_vanity ? 1 : 0
 
