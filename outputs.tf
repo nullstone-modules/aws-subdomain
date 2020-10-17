@@ -1,3 +1,7 @@
+output "name" {
+  value = aws_route53_zone.this.name
+}
+
 output "domain" {
   value = {
     name    = data.terraform_remote_state.domain.outputs.name
