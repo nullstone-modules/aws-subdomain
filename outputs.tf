@@ -1,5 +1,6 @@
 output "name" {
-  value = aws_route53_zone.this.name
+  value       = aws_route53_zone.this.name
+  description = "string ||| "
 }
 
 output "domain" {
@@ -7,6 +8,7 @@ output "domain" {
     name    = data.terraform_remote_state.domain.outputs.name
     zone_id = data.terraform_remote_state.domain.outputs.zone_id
   }
+  description = "object({ name: string, zone_id: string }) ||| "
 }
 
 output "subdomain" {
@@ -15,8 +17,10 @@ output "subdomain" {
     zone_id     = aws_route53_zone.this.zone_id
     nameservers = aws_route53_zone.this.name_servers
   }
+  description = "object({ name: string, zone_id: string, nameservers: list(string) }) ||| "
 }
 
 output "cert_arn" {
-  value = module.cert.certificate_arn
+  value       = module.cert.certificate_arn
+  description = "string ||| "
 }
