@@ -4,16 +4,15 @@ Nullstone Block standing up a subdomain in AWS Route53 for each environment.
 
 ## Inputs
 
-- `owner_id: string` - Stack Owner ID
-- `stack_name: string` - Stack Name
-- `block_name: string` - Block Name
-- `parent_block: string` - Parent Block
-- `env: string` - Environment Name
-- `backend_conn_str: string` - Connection string for postgres backend
-
-- `subdomain: string` - Subdomain to configure
+- `subdomain: string` - This represents the token to prepend the input domain block (i.e. the fqdn is represented by {var.subdomain}.<domain>.)
+- `create_vanity: bool (default: false)` - Enable this to create a vanity subdomain instead of environmental. This is typically enabled on the production environment.
+- `create_cert: bool (default: true)` - Enable this to create an SSL certificate through AWS ACM service.
 
 ## Outputs
 
-- `subdomain_zone_id: string` - Route53 Zone ID of Subdomain
-- `subdomain_nameservers: list(string)` - List of Nameservers for Route53 Zone
+- `name: string` - The created subdomain.
+- `zone_id: string` - The zone ID of the AWS Route53 Zone for the created subdomain.
+- `nameservers: list(string)` - The list of nameservers of the AWS Route53 Zone for the created subdomain.
+- `domain_name: string` - The name of the root domain.
+- `domain_zeon_id: string` - The zone ID of the root domain.
+- `cert_arn: string` - If var.create_cert is enabled, the ARN of the SSL Certificate.

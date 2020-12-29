@@ -1,15 +1,11 @@
 locals {
-  subdomain = var.create_vanity ? var.subdomain : "${var.subdomain}.${var.env}"
+  subdomain = var.create_vanity ? var.subdomain : "${var.subdomain}.${data.ns_workspace.this.env}"
 }
 
 resource "aws_route53_zone" "this" {
   name = "${local.subdomain}.${local.domain_name}"
 
-  tags = {
-    Stack       = var.stack_name
-    Environment = var.env
-    Block       = var.block_name
-  }
+  tags = data.ns_workspace.this.tags
 }
 
 // This record is added to the domain's zone to delegate this subdomain's records
