@@ -3,21 +3,24 @@ output "name" {
   description = "string ||| The created subdomain."
 }
 
-output "domain" {
-  value = {
-    name    = data.terraform_remote_state.domain.outputs.name
-    zone_id = data.terraform_remote_state.domain.outputs.zone_id
-  }
-  description = "object({ name: string, zone_id: string }) ||| Information about the domain that owns the created subdomain."
+output "zone_id" {
+  value       = aws_route53_zone.this.zone_id
+  description = "string ||| The zone ID of the AWS Route53 Zone for the created subdomain."
 }
 
-output "subdomain" {
-  value = {
-    name        = aws_route53_zone.this.name
-    zone_id     = aws_route53_zone.this.zone_id
-    nameservers = aws_route53_zone.this.name_servers
-  }
-  description = "object({ name: string, zone_id: string, nameservers: list(string) }) ||| Full information about the created subdomain."
+output "nameservers" {
+  value       = aws_route53_zone.this.name_servers
+  description = "list(string) ||| The list of nameservers of the AWS Route53 Zone for the created subdomain."
+}
+
+output "domain_name" {
+  value       = local.domain_name
+  description = "string ||| The name of the root domain."
+}
+
+output "domain_zone_id" {
+  value       = local.domain_zone_id
+  description = "string ||| The zone ID of the root domain."
 }
 
 output "cert_arn" {
