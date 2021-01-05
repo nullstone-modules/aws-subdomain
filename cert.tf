@@ -6,5 +6,6 @@ module "cert" {
     zone_id = aws_route53_zone.this.zone_id
   }
 
-  tags = data.ns_workspace.this.tags
+  verify_by_email = var.verify_cert_by_email
+  tags            = data.ns_workspace.this.tags
 }

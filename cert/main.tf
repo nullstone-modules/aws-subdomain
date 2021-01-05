@@ -6,6 +6,12 @@ variable "domain" {
   })
 }
 
+variable "verify_by_email" {
+  type        = bool
+  description = "When enabled, this disables DNS verification of the subdomain. Instead, AWS will send an email to the domain registrant."
+  default     = false
+}
+
 variable "tags" {
   description = "A mapping of tags to assign to the resource"
   type        = map(string)
@@ -14,7 +20,7 @@ variable "tags" {
 
 resource "aws_acm_certificate" "this" {
   domain_name               = var.domain.name
-  validation_method         = "DNS"
+  validation_method         = var.verify_by_email ? "EMAIL" : "DNS"
   subject_alternative_names = []
 
   tags = var.tags

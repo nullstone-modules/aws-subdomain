@@ -14,3 +14,9 @@ variable "create_cert" {
   description = "Enable this to create an SSL certificate through AWS ACM service."
   default     = true
 }
+
+variable "verify_cert_by_email" {
+  type        = bool
+  description = "When enabled, this disables DNS verification of the subdomain. Instead, AWS will send an email to the domain registrant."
+  default     = false
+}
