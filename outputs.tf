@@ -1,6 +1,11 @@
 output "name" {
+  value       = var.subdomain
+  description = "string ||| The name that precedes the domain name for the created subdomain."
+}
+
+output "fqdn" {
   value       = aws_route53_zone.this.name
-  description = "string ||| The created subdomain."
+  description = "string ||| The FQDN (fully-qualified domain name) for the created subdomain."
 }
 
 output "zone_id" {
