@@ -1,5 +1,5 @@
 output "name" {
-  value       = var.subdomain
+  value       = data.ns_subdomain.this.dns_name
   description = "string ||| The name that precedes the domain name for the created subdomain."
 }
 
