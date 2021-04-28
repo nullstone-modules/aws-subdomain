@@ -7,4 +7,6 @@ module "cert" {
   }
 
   tags = data.ns_workspace.this.tags
+
+  count = var.create_cert ? 1 : 0
 }

@@ -29,6 +29,6 @@ output "domain_zone_id" {
 }
 
 output "cert_arn" {
-  value       = module.cert.certificate_arn
+  value       = try(module.cert[0].certificate_arn, "")
   description = "string ||| If var.create_cert is enabled, the ARN of the SSL Certificate."
 }
