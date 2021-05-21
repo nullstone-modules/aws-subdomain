@@ -1,10 +1,10 @@
 data "ns_subdomain" "this" {
-  stack = data.ns_workspace.this.stack
-  block = data.ns_workspace.this.block
+  stack_id = data.ns_workspace.this.stack_id
+  block_id = data.ns_workspace.this.block_id
 }
 
 locals {
-  subdomain = var.create_vanity ? data.ns_subdomain.this.dns_name : "${data.ns_subdomain.this.dns_name}.${data.ns_workspace.this.env}"
+  subdomain = var.create_vanity ? data.ns_subdomain.this.dns_name : "${data.ns_subdomain.this.dns_name}.${data.ns_workspace.this.env_name}"
 }
 
 resource "aws_route53_zone" "this" {
