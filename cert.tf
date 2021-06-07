@@ -6,7 +6,6 @@ module "cert" {
     zone_id = aws_route53_zone.this.zone_id
   }
 
-  tags = data.ns_workspace.this.tags
-
-  count = var.create_cert ? 1 : 0
+  enabled = var.create_cert
+  tags    = data.ns_workspace.this.tags
 }
