@@ -5,5 +5,5 @@ module "delegator" {
   name    = "dns-delegator-${local.resource_name}"
   tags    = data.ns_workspace.this.tags
 
-  count = var.create_delegator && ! local.is_passthrough ? 1 : 0
+  count = var.create_delegator && !local.is_passthrough ? 1 : 0
 }

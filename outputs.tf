@@ -32,3 +32,8 @@ output "cert_arn" {
   value       = try(module.cert.certificate_arn, "")
   description = "string ||| If var.create_cert is enabled, the ARN of the SSL Certificate."
 }
+output "delegator" {
+  value       = try(module.delegator.delegator, { name : "", access_key : "", secret_key : "" })
+  description = "object({ name: string, access_key: string, secret_key: string }) ||| "
+  sensitive   = true
+}

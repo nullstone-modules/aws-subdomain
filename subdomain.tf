@@ -2,7 +2,7 @@ resource "aws_route53_zone" "this" {
   name = local.fqdn
   tags = data.ns_workspace.this.tags
 
-  count = ! local.is_passthrough ? 1 : 0
+  count = !local.is_passthrough ? 1 : 0
 }
 
 resource "aws_route53_record" "this-delegation" {
@@ -14,5 +14,5 @@ resource "aws_route53_record" "this-delegation" {
   ttl     = 300
   records = aws_route53_zone.this[count.index].name_servers
 
-  count = ! local.is_passthrough ? 1 : 0
+  count = !local.is_passthrough ? 1 : 0
 }
