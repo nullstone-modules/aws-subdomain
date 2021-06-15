@@ -1,20 +1,20 @@
 output "name" {
-  value       = data.ns_subdomain.this.dns_name
+  value       = local.name
   description = "string ||| The name that precedes the domain name for the created subdomain."
 }
 
 output "fqdn" {
-  value       = aws_route53_zone.this.name
+  value       = local.fqdn
   description = "string ||| The FQDN (fully-qualified domain name) for the created subdomain."
 }
 
 output "zone_id" {
-  value       = aws_route53_zone.this.zone_id
+  value       = local.zone_id
   description = "string ||| The zone ID of the AWS Route53 Zone for the created subdomain."
 }
 
 output "nameservers" {
-  value       = aws_route53_zone.this.name_servers
+  value       = local.nameservers
   description = "list(string) ||| The list of nameservers of the AWS Route53 Zone for the created subdomain."
 }
 
