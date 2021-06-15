@@ -11,7 +11,6 @@ locals {
   subdomain       = trimsuffix(local.subdomain_chunk, ".")
   fqdn            = "${local.subdomain_chunk}${local.domain_name}"
 
-  // This record is added to the domain's zone to delegate this subdomain's records
   is_passthrough = local.fqdn == local.domain_name
 
   // output locals
