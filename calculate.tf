@@ -11,13 +11,10 @@ locals {
   subdomain       = trimsuffix(local.subdomain_chunk, ".")
   fqdn            = "${local.subdomain_chunk}${local.domain_name}"
 
-  subdomain_delegator = var.create_delegator ? module.delegator.delegator : { name : "", access_key : "", secret_key : "" }
-
   is_passthrough = local.fqdn == local.domain_name
 
   // output locals
   name        = !local.is_passthrough ? aws_route53_zone.this[0].name : local.domain_name
   zone_id     = !local.is_passthrough ? aws_route53_zone.this[0].zone_id : local.domain_zone_id
   nameservers = !local.is_passthrough ? aws_route53_zone.this[0].name_servers : local.domain_nameservers
-  delegator   = local.is_passthrough ? data.ns_connection.domain.outputs.delegator : local.subdomain_delegator
 }

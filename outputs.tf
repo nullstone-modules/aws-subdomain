@@ -33,7 +33,7 @@ output "cert_arn" {
   description = "string ||| If var.create_cert is enabled, the ARN of the SSL Certificate."
 }
 output "delegator" {
-  value       = local.delegator
+  value       = local.is_passthrough ? data.ns_connection.domain.outputs.delegator : (var.create_delegator ? module.delegator.delegator : { name : "", access_key : "", secret_key : "" })
   description = "object({ name: string, access_key: string, secret_key: string }) ||| "
   sensitive   = true
 }
