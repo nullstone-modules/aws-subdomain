@@ -1,19 +1,10 @@
-data "ns_subdomain" "this" {
-  stack_id = data.ns_workspace.this.stack_id
-  block_id = data.ns_workspace.this.block_id
-}
-
-locals {
-  subdomain = var.create_vanity ? data.ns_subdomain.this.dns_name : "${data.ns_subdomain.this.dns_name}.${data.ns_workspace.this.env_name}"
-}
-
 resource "aws_route53_zone" "this" {
-  name = "${local.subdomain}.${local.domain_name}"
-
+  name = local.fqdn
   tags = data.ns_workspace.this.tags
+
+  count = ! local.is_passthrough ? 1 : 0
 }
 
-// This record is added to the domain's zone to delegate this subdomain's records
 resource "aws_route53_record" "this-delegation" {
   provider = aws.domain
 
@@ -21,5 +12,7 @@ resource "aws_route53_record" "this-delegation" {
   zone_id = local.domain_zone_id
   type    = "NS"
   ttl     = 300
-  records = aws_route53_zone.this.name_servers
+  records = aws_route53_zone.this[count.index].name_servers
+
+  count = ! local.is_passthrough ? 1 : 0
 }
