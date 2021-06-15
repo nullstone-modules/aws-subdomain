@@ -9,3 +9,9 @@ variable "create_cert" {
   description = "Enable this to create an SSL certificate through AWS ACM service."
   default     = true
 }
+
+variable "create_delegator" {
+  type        = bool
+  description = "Enable this to create an IAM User that only has permissions to modify the created DNS Zone."
+  default     = false
+}
