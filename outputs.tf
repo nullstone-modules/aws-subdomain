@@ -28,10 +28,6 @@ output "domain_zone_id" {
   description = "string ||| The zone ID of the root domain."
 }
 
-output "cert_arn" {
-  value       = try(module.cert.certificate_arn, "")
-  description = "string ||| If var.create_cert is enabled, the ARN of the SSL Certificate."
-}
 output "delegator" {
   value       = local.is_passthrough ? data.ns_connection.domain.outputs.delegator : (var.create_delegator ? module.delegator[0].delegator : { name : "", access_key : "", secret_key : "" })
   description = "object({ name: string, access_key: string, secret_key: string }) ||| "
