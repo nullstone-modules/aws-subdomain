@@ -1,4 +1,4 @@
-# block-aws-subdomain
+# aws-subdomain
 
 Nullstone Block standing up a subdomain in AWS Route53 for each environment.
 

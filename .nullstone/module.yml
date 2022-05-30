@@ -1,0 +1,11 @@
+org_name: nullstone
+name: aws-subdomain
+friendly_name: Subdomain
+description: Creates a DNS zone in AWS for the subdomain in each Nullstone environment
+category: subdomain
+type: subdomain/aws
+appCategories: []
+layer: public-entry
+is_public: true
+provider_types:
+    - aws
