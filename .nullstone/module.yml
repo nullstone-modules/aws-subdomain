@@ -3,9 +3,11 @@ name: aws-subdomain
 friendly_name: Subdomain
 description: Creates a DNS zone in AWS for the subdomain in each Nullstone environment
 category: subdomain
-type: subdomain/aws
-appCategories: []
-layer: public-entry
-is_public: true
+subcategory: ""
 provider_types:
     - aws
+platform: route53
+subplatform: ""
+type: subdomain/aws
+appCategories: []
+is_public: true

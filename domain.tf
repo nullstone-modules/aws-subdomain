@@ -1,6 +1,7 @@
 data "ns_connection" "domain" {
-  name = "domain"
-  type = "domain/aws"
+  name     = "domain"
+  type     = "domain/aws"
+  contract = "domain/aws/route53"
 }
 
 locals {

@@ -8,13 +8,12 @@ terraform {
 
 data "ns_workspace" "this" {}
 
-
 // Generate a random suffix to ensure uniqueness of resources
 resource "random_string" "resource_suffix" {
   length  = 5
   lower   = true
   upper   = false
-  number  = false
+  numeric = false
   special = false
 }
 
