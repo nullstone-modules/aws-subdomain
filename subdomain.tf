@@ -7,7 +7,7 @@ data "ns_subdomain" "this" {
 locals {
   subdomain_part = data.ns_subdomain.this.subdomain_name
   fqdn           = data.ns_subdomain.this.fqdn
-  is_passthrough = local.fqdn == local.domain_name
+  is_passthrough = trimsuffix(local.fqdn, ".") == local.domain_name
 
   created_name        = try(aws_route53_zone.this[0].name, "")
   created_zone_id     = try(aws_route53_zone.this[0].zone_id, "")
