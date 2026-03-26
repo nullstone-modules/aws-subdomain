@@ -4,7 +4,6 @@ Nullstone Block standing up a subdomain in AWS Route53 for each environment.
 
 ## Inputs
 
-- `create_vanity: bool (default: false)` - Enable this to create a vanity subdomain instead of environmental. This is typically enabled on the production environment.
 - `create_delegator: bool (default: false)` - Enable this to create an IAM User that only has permissions to modify the created DNS Zone.
 
 ## Outputs
