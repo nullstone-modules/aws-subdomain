@@ -14,7 +14,7 @@ locals {
   domain_assume_role = try(local.domain_delegator["role_arn"], "") == "" ? [] : [
     {
       role_arn : local.domain_delegator["role_arn"]
-      duration : local.domain_delegator["session_duration"]
+      duration : try("${local.domain_delegator["session_duration"]}s", null)
     }
   ]
 }

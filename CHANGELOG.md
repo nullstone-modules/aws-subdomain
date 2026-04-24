@@ -1,3 +1,6 @@
+# 0.8.2 (Apr 24, 2026)
+* Fixed configuration of aws `domain` provider with assume role duration.
+
 # 0.8.1 (Apr 24, 2026)
 * Fixed usage of `try` when looking up domain outputs.
 
