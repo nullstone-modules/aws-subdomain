@@ -9,9 +9,9 @@ locals {
   domain_nameservers = data.ns_connection.domain.outputs.nameservers
   domain_delegator   = data.ns_connection.domain.outputs.delegator
 
-  domain_access_key = try(local.domain_delegator["access_key"])
-  domain_secret_key = try(local.domain_delegator["secret_key"])
-  domain_assume_role = try(local.domain_delegator["role_arn"]) == "" ? [] : [
+  domain_access_key = try(local.domain_delegator["access_key"], "")
+  domain_secret_key = try(local.domain_delegator["secret_key"], "")
+  domain_assume_role = try(local.domain_delegator["role_arn"], "") == "" ? [] : [
     {
       role_arn : local.domain_delegator["role_arn"]
       duration : local.domain_delegator["session_duration"]
@@ -32,11 +32,6 @@ provider "aws" {
       role_arn = ar.value["role_arn"]
       duration = ar.value["duration"]
     }
-  }
-
-  assume_role {
-    role_arn = local.domain_delegator["role_arn"]
-    duration = local.domain_delegator["session_duration"]
   }
 
   alias = "domain"

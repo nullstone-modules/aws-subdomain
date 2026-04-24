@@ -1,3 +1,6 @@
+# 0.8.1 (Apr 24, 2026)
+* Fixed usage of `try` when looking up domain outputs.
+
 # 0.8.0 (Mar 26, 2026)
 * Migrated domain delegator from IAM user to IAM role.
 * Migrated from Terraform to OpenTofu.
